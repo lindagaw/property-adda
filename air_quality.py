@@ -43,13 +43,21 @@ def get_individual_beacon_id():
     print('there are {} unique beacons in the dataset'.format(len(beacons)))
     return beacons
 
+def break_single_beacon_data(beacon_data):
+    chunks = np.split(beacon_data, 20)
+
+    return chunks[:len(chunks)-2]
+
 def get_city_dataset(city):
     beacons = get_individual_beacon_id()
     city_data = []
     for beacon in beacons:
         if beacon[:3] == city:
             beacon_data = get_individual_beacon_data(beacon)
-            city_data.append(beacon_data)
+            chunks = break_single_beacon_data(beacon_data)
+
+            for chunk in chunks:
+                city_data.append(chunk)
 
     city_data = np.asarray(city_data)
     print('city {} has data of shape {}'.format(city, city_data.shape))
