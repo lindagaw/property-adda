@@ -69,13 +69,13 @@ def get_city_dataset(city):
     return city_data
 
 beijing = get_city_dataset('001')
-np.save('data//beijing.npy', beijing)
+np.save('data//pre-processed//beijing.npy', beijing)
 
 shenzhen = get_city_dataset('004')
-np.save('data//shenzhen.npy', shenzhen)
+np.save('data//pre-processed//shenzhen.npy', shenzhen)
 
 tianjin = get_city_dataset('006')
-np.save('data//tianjin.npy', tianjin)
+np.save('data//pre-processed//tianjin.npy', tianjin)
 
 guangzhou = get_city_dataset('009')
-np.save('data//guangzhou.npy', guangzhou)
+np.save('data//pre-processed//guangzhou.npy', guangzhou)
