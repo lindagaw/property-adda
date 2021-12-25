@@ -43,10 +43,15 @@ def get_individual_beacon_id():
     print('there are {} unique beacons in the dataset'.format(len(beacons)))
     return beacons
 
-def break_single_beacon_data(beacon_data):
-    chunks = np.split(beacon_data, 20)
+def get_chunks(L, n): 
+    return [L[x: x+n] for x in range(0, len(L), n)]
 
-    return chunks[:len(chunks)-2]
+def break_single_beacon_data(beacon_data):
+    chunks = get_chunks(beacon_data, 20)
+    chunks = np.asarray(chunks[:len(chunks)-2])
+
+    print(chunks.shape)
+    return chunks
 
 def get_city_dataset(city):
     beacons = get_individual_beacon_id()
@@ -57,10 +62,20 @@ def get_city_dataset(city):
             chunks = break_single_beacon_data(beacon_data)
 
             for chunk in chunks:
-                city_data.append(chunk)
+                city_data.append(np.asarray(chunk))
 
     city_data = np.asarray(city_data)
     print('city {} has data of shape {}'.format(city, city_data.shape))
     return city_data
 
-get_city_dataset('001')
+beijing = get_city_dataset('001')
+np.save('data//beijing.npy', beijing)
+
+shenzhen = get_city_dataset('004')
+np.save('data//shenzhen.npy', shenzhen)
+
+tianjin = get_city_dataset('006')
+np.save('data//tianjin.npy', tianjin)
+
+guangzhou = get_city_dataset('009')
+np.save('data//guangzhou.npy', guangzhou)
