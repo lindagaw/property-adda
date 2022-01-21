@@ -2,10 +2,10 @@ import os
 import numpy as np
 
 import tensorflow as tf
-from tf.keras.models import Sequential
-from tf.keras.layers import Dense
-from tf.keras.layers import LSTM
-from tf.keras.layers import Dropout
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.layers import Dropout
 
 def load_data(city_name):
     xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
