@@ -29,12 +29,12 @@ y_train = beijing_ys
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.33, random_state=42)
 
 regressor = Sequential()
-for i in range(0, 8):
+for i in range(0, 10):
     regressor.add(LSTM(units = 50, return_sequences = True))
     regressor.add(Dropout(0.2))
 regressor.add(Dense(units = 1))
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
-regressor.fit(X_train, y_train, epochs = 500, batch_size = 32)
+regressor.fit(X_train, y_train, epochs = 200, batch_size = 32)
 
 y_pred = np.squeeze(regressor.predict(X_test))
 
