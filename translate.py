@@ -80,7 +80,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 
-BATCH = 50
+BATCH = 1
 def train_step(images):
     noise = np.random.rand(BATCH, 1, 18)
 
@@ -99,4 +99,11 @@ def train_step(images):
     generator_optimizer.apply_gradients(zip(gradients_of_generator, generator.trainable_variables))
     discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, discriminator.trainable_variables))
 
-train_step(beijing_xs)
+def train(dataset, epochs):
+  for epoch in range(epochs):
+    start = time.time()
+
+    for image_batch in dataset:
+      train_step(image_batch)
+
+train(beijing_xs, 2)
