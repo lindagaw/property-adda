@@ -36,11 +36,11 @@ def make_generator_model():
 
     print('---------------------------------------------------------------------')
 
-    model.add(layers.Conv1DTranspose(64, 5, strides=1, padding='same', use_bias=False))
-    model.add(layers.BatchNormalization())
-    model.add(layers.LeakyReLU())
+    #model.add(layers.Conv1DTranspose(64, 5, strides=1, padding='same', use_bias=False))
+    #model.add(layers.BatchNormalization())
+    #model.add(layers.LeakyReLU())
 
-    model.add(layers.Conv1DTranspose(1, 5, strides=1, padding='same', use_bias=False, activation='tanh'))
+    model.add(layers.Conv1DTranspose(1, 1, strides=1, padding='same', use_bias=False, activation='tanh'))
 
     return model
 
