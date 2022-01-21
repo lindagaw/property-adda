@@ -58,4 +58,5 @@ def make_discriminator_model():
 
     return model
 
-discriminator = make_discriminator_model(beijing_xs[0])
+discriminator = make_discriminator_model()
+discriminator.predict(beijing_xs[0])
