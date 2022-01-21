@@ -85,7 +85,7 @@ def train_step(images):
     noise = np.random.rand(BATCH, 1, 18)
 
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
-      generated_images = generator(noise, training=True)
+      generated_images = np.expand_dims(generator(noise, training=True), axis=0)
 
       real_output = discriminator(images, training=True)
       fake_output = discriminator(generated_images, training=True)
