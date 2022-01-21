@@ -76,6 +76,55 @@ np.save('data//pre-processed//shenzhen.npy', shenzhen)
 
 tianjin = get_city_dataset('006')
 np.save('data//pre-processed//tianjin.npy', tianjin)
+#print(np.load('data//pre-processed//tianjin.npy').shape)
 
 guangzhou = get_city_dataset('009')
 np.save('data//pre-processed//guangzhou.npy', guangzhou)
+
+
+import pretty_errors
+import os
+import numpy as np
+
+# load datasets
+beijing = np.load('data//pre-processed//beijing.npy')
+shenzhen = np.load('data//pre-processed//shenzhen.npy')
+tianjin = np.load('data//pre-processed//tianjin.npy')
+guangzhou = np.load('data//pre-processed//guangzhou.npy')
+
+def obtain_x_y(city, city_name):
+    xs = []
+    ys = []
+    for sample in city:
+        x = []
+        for component in sample[:len(sample)-2]:
+            norm = np.linalg.norm(component)
+            x.append(norm)
+
+        y = np.linalg.norm(sample[len(sample)-1])
+
+        xs.append(x)
+        ys.append(y)
+
+    xs = np.asarray(xs)
+    ys = np.asarray(ys)
+
+    np.save('data//pre-processed//' + city_name + '_finalized_x.npy', xs)
+    np.save('data//pre-processed//' + city_name + '_finalized_y.npy', ys)
+
+obtain_x_y(beijing, 'beijing')
+obtain_x_y(tianjin, 'tianjin')
+obtain_x_y(shenzhen, 'shenzhen')
+obtain_x_y(guangzhou, 'guangzhou')
+
+def display_data(city_name):
+    xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
+    ys = np.load('data//pre-processed//'+ city_name + '_finalized_y.npy')
+    print("{} xs has shape {}".format(city_name, xs.shape))
+    print("{} ys has shape {}".format(city_name, ys.shape))
+
+
+display_data('beijing')
+display_data('tianjin')
+display_data('shenzhen')
+display_data('guangzhou')
