@@ -36,7 +36,7 @@ regressor.add(Dense(units = 1))
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
 regressor.fit(X_train, y_train, epochs = 150, batch_size = 32)
 
-y_pred = regressor.predict(X_test)
+y_pred = np.squeeze(regressor.predict(X_test))
 
 mse = mean_squared_error(y_test, y_pred)
 
