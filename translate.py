@@ -36,7 +36,7 @@ def make_generator_model():
     model.add(layers.Dropout(0.3))
 
     model.add(layers.Flatten())
-    model.add(layers.Dense(1))
+    model.add(layers.Dense(18))
 
     return model
 
