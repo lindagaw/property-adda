@@ -43,7 +43,7 @@ def get_individual_beacon_id():
     print('there are {} unique beacons in the dataset'.format(len(beacons)))
     return beacons
 
-def get_chunks(L, n): 
+def get_chunks(L, n):
     return [L[x: x+n] for x in range(0, len(L), n)]
 
 def break_single_beacon_data(beacon_data):
