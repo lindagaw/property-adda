@@ -30,11 +30,11 @@ X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=
 
 regressor = Sequential()
 for i in range(0, 8):
-    regressor.add(LSTM(units = 501, return_sequences = True))
+    regressor.add(LSTM(units = 500, return_sequences = True))
     regressor.add(Dropout(0.2))
 regressor.add(Dense(units = 1))
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
-regressor.fit(X_train, y_train, epochs = 150, batch_size = 32)
+regressor.fit(X_train, y_train, epochs = 500, batch_size = 32)
 
 y_pred = np.squeeze(regressor.predict(X_test))
 
