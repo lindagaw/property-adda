@@ -87,7 +87,11 @@ def train_step(images):
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
       generated_images = np.expand_dims(generator(noise, training=True), axis=1)
 
-      real_output = discriminator(images, training=True)
+      try:
+          real_output = discriminator(images, training=True)
+      except:
+          real_output = discriminator(np.asarray([images]), training=True)
+
       fake_output = discriminator(generated_images, training=True)
 
       gen_loss = generator_loss(fake_output)
@@ -101,7 +105,6 @@ def train_step(images):
 
 def train(dataset, epochs):
   for epoch in range(epochs):
-    
 
     for image_batch in dataset:
       train_step(image_batch)
