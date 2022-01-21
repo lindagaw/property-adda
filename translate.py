@@ -101,7 +101,7 @@ def train_step(images):
 
 def train(dataset, epochs):
   for epoch in range(epochs):
-    start = time.time()
+    
 
     for image_batch in dataset:
       train_step(image_batch)
