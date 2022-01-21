@@ -80,8 +80,9 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 
+BATCH = 50
 def train_step(images):
-    noise = np.asarray([np.random.rand(1, 18)])
+    noise = np.random.rand(BATCH, 1, 18)
 
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
       generated_images = generator(noise, training=True)
