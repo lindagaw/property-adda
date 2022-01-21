@@ -8,7 +8,7 @@ from tensorflow.keras.layers import LSTM
 from tensorflow.keras.layers import Dropout
 
 def load_data(city_name):
-    xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
+    xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy').reshape(-1, 1, 1)
     ys = np.load('data//pre-processed//'+ city_name + '_finalized_y.npy')
     print("{} xs has shape {}".format(city_name, xs.shape))
     print("{} ys has shape {}".format(city_name, ys.shape))
@@ -23,7 +23,7 @@ X_train = beijing_xs
 y_train = beijing_ys
 
 regressor = Sequential()
-regressor.add(LSTM(units = 50, return_sequences = True, input_shape = X_train.shape))
+regressor.add(LSTM(units = 50, return_sequences = True, input_shape = (X_train.shape[1], 1)))
 regressor.add(Dropout(0.2))
 regressor.add(LSTM(units = 50, return_sequences = True))
 regressor.add(Dropout(0.2))
