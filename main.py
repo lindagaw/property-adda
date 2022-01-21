@@ -7,6 +7,9 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 from tensorflow.keras.layers import Dropout
 
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+
 def load_data(city_name):
     xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
     xs = np.expand_dims(xs, axis=1)
@@ -16,12 +19,14 @@ def load_data(city_name):
     return xs, ys
 
 beijing_xs, beijing_ys = load_data('beijing')
-tianjin_xs, tianjin_ys = load_data('tianjin')
-shenzhen_xs, shenzhen_ys = load_data('shenzhen')
-guangzhou_xs, guangzhou_ys = load_data('guangzhou')
+#tianjin_xs, tianjin_ys = load_data('tianjin')
+#shenzhen_xs, shenzhen_ys = load_data('shenzhen')
+#guangzhou_xs, guangzhou_ys = load_data('guangzhou')
 
 X_train = beijing_xs
 y_train = beijing_ys
+
+X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.33, random_state=42)
 
 regressor = Sequential()
 regressor.add(LSTM(units = 50, return_sequences = True, input_shape = (1, 18)))
@@ -34,4 +39,10 @@ regressor.add(LSTM(units = 50))
 regressor.add(Dropout(0.2))
 regressor.add(Dense(units = 1))
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
-regressor.fit(X_train, y_train, epochs = 100, batch_size = 32)
+regressor.fit(X_train, y_train, epochs = 1000, batch_size = 32)
+
+y_pred = regressor.predict(X_test)
+
+mse = mean_squared_error(y_test, y_pred)
+
+print('the testing mse error is {}'.format(mse))
