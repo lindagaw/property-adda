@@ -64,6 +64,8 @@ cross_entropy = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 def discriminator_loss(real_output, fake_output):
     real_loss = tf.nn.softmax_cross_entropy_with_logits(tf.ones_like(real_output), real_output)
     fake_loss = tf.nn.softmax_cross_entropy_with_logits(tf.zeros_like(fake_output), fake_output)
+
+    print(real_loss)
     total_loss = real_loss + fake_loss
     return total_loss
 
