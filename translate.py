@@ -59,4 +59,4 @@ def make_discriminator_model():
     return model
 
 discriminator = make_discriminator_model()
-discriminator.predict(np.expand_dims(beijing_xs, axis=-1))
+discriminator.predict(beijing_xs)
