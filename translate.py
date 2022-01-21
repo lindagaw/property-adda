@@ -105,6 +105,7 @@ def train_step(images):
 def train(dataset, epochs):
   for epoch in range(epochs):
       print('training the {}th epoch'.format(epoch))
+      print('--------------------------------------')
       for image_batch in dataset:
           train_step(image_batch)
 
