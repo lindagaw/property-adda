@@ -30,6 +30,7 @@ def make_generator_model():
     #model.add(layers.BatchNormalization())
     #model.add(layers.LeakyReLU())
 
+    print('hello')
     model.add(layers.Conv1DTranspose(128, 5, strides=1, padding='same', use_bias=False))
     model.add(layers.BatchNormalization())
     model.add(layers.LeakyReLU())
