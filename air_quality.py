@@ -98,8 +98,8 @@ def obtain_x_y(city, city_name):
     for sample in city:
         x = []
         for component in sample[:len(sample)-2]:
-            norm = np.linalg.norm(component)
-            x.append(norm)
+            #norm = np.linalg.norm(component)
+            x.append(component)
 
         y = np.linalg.norm(sample[len(sample)-1])
 
