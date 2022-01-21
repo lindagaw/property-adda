@@ -29,7 +29,7 @@ y_train = beijing_ys
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.33, random_state=42)
 
 regressor = Sequential()
-regressor.add(LSTM(units = 50, return_sequences = True, input_shape = (1, 18)))
+regressor.add(LSTM(units = 50, return_sequences = True, input_shape = (10, 18)))
 regressor.add(Dropout(0.2))
 regressor.add(LSTM(units = 50, return_sequences = True))
 regressor.add(Dropout(0.2))
@@ -39,7 +39,7 @@ regressor.add(LSTM(units = 50))
 regressor.add(Dropout(0.2))
 regressor.add(Dense(units = 1))
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
-regressor.fit(X_train, y_train, epochs = 1000, batch_size = 32)
+regressor.fit(X_train, y_train, epochs = 150, batch_size = 32)
 
 y_pred = regressor.predict(X_test)
 
