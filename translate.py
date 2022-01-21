@@ -44,12 +44,12 @@ def make_generator_model():
 
 def make_discriminator_model():
     model = tf.keras.Sequential()
-    model.add(layers.Conv2D(64, 1, strides=1, padding='same',
+    model.add(layers.Conv1D(64, 1, strides=1, padding='same',
                                      input_shape = (1, 18)))
     model.add(layers.LeakyReLU())
     model.add(layers.Dropout(0.3))
 
-    model.add(layers.Conv2D(128, 1, strides=1, padding='same'))
+    model.add(layers.Conv1D(128, 1, strides=1, padding='same'))
     model.add(layers.LeakyReLU())
     model.add(layers.Dropout(0.3))
 
