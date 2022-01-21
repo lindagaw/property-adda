@@ -58,6 +58,9 @@ def make_discriminator_model():
 
     return model
 
+discriminator = make_discriminator_model()
+generator = make_generator_model()
+
 cross_entropy = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 
 def discriminator_loss(real_output, fake_output):
