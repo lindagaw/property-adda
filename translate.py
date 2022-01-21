@@ -85,23 +85,22 @@ def train_step(images):
     noise = np.random.rand(BATCH, 1, 18)
 
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
-      generated_images = np.expand_dims(generator(noise, training=True), axis=1)
+        generated_images = np.expand_dims(generator(noise, training=True), axis=1)
 
-      try:
-          real_output = discriminator(images, training=True)
-      except:
-          real_output = discriminator(np.asarray([images]), training=True)
+        try:
+            real_output = discriminator(images, training=True)
+        except:
+            real_output = discriminator(np.asarray([images]), training=True)
 
-      fake_output = discriminator(generated_images, training=True)
+    fake_output = discriminator(generated_images, training=True)
 
-      gen_loss = generator_loss(fake_output)
-      disc_loss = discriminator_loss(real_output, fake_output)
+    gen_loss = generator_loss(fake_output)
+    disc_loss = discriminator_loss(real_output, fake_output)
 
     gradients_of_generator = gen_tape.gradient(gen_loss, generator.trainable_variables)
     gradients_of_discriminator = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
 
-    print('-------------------------------')
-    print(gradients_of_generator)
+    print(gen_loss)
 
     generator_optimizer.apply_gradients(zip(gradients_of_generator, generator.trainable_variables))
     discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, discriminator.trainable_variables))
