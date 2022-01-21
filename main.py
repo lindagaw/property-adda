@@ -23,7 +23,7 @@ X_train = beijing_xs
 y_train = beijing_ys
 
 regressor = Sequential()
-regressor.add(LSTM(units = 50, return_sequences = True, input_shape = (1, X_train.shape[1])))
+regressor.add(LSTM(units = 50, return_sequences = True, input_shape = (1, X_train.shape[0], X_train.shape[1])))
 regressor.add(Dropout(0.2))
 regressor.add(LSTM(units = 50, return_sequences = True))
 regressor.add(Dropout(0.2))
