@@ -59,7 +59,7 @@ def make_discriminator_model():
 discriminator = make_discriminator_model()
 generator = make_generator_model()
 
-cross_entropy = tf.nn.softmax_cross_entropy_with_logits(_y,y)
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits()
 
 def discriminator_loss(real_output, fake_output):
     real_loss = cross_entropy(tf.ones_like(real_output), real_output)
