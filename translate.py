@@ -27,8 +27,8 @@ guangzhou_xs, guangzhou_ys = load_data('guangzhou')
 def make_generator_model():
     model = tf.keras.Sequential()
     model.add(layers.Dense(500, input_shape = (1, 18)))
-    #model.add(layers.BatchNormalization())
-    #model.add(layers.LeakyReLU())
+    model.add(layers.BatchNormalization())
+    model.add(layers.LeakyReLU())
 
     print('---------------------------------------------------------------------')
     model.add(layers.Conv1DTranspose(128, 5, strides=1, padding='same', use_bias=False))
