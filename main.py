@@ -8,7 +8,8 @@ from tensorflow.keras.layers import LSTM
 from tensorflow.keras.layers import Dropout
 
 def load_data(city_name):
-    xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy').expand_dims(axis=1)
+    xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
+    xs = np.expand_dims(xs, axis=1)
     ys = np.load('data//pre-processed//'+ city_name + '_finalized_y.npy')
     print("{} xs has shape {}".format(city_name, xs.shape))
     print("{} ys has shape {}".format(city_name, ys.shape))
