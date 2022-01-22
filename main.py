@@ -27,6 +27,10 @@ tianjin_to_beijing = np.load('translated//tianjin_to_beijing.npy')
 shenzhen_to_beijing = np.load('translated//shenzhen_to_beijing.npy')
 guangzhou_to_beijing = np.load('translated//guangzhou_to_beijing.npy')
 
+tianjin_to_beijing_no_m = np.load('translated//tianjin_to_beijing_no_mahalanobis.npy')
+shenzhen_to_beijing_no_m = np.load('translated//shenzhen_to_beijing_no_mahalanobis.npy')
+guangzhou_to_beijing_no_m = np.load('translated//guangzhou_to_beijing_no_mahalanobis.npy')
+
 X_train = beijing_xs
 y_train = beijing_ys
 
@@ -62,3 +66,17 @@ print('the testing mse of translated shenzhen is {}'.format(mse_s_b))
 y_pred_guangzhou = np.squeeze(regressor.predict(np.expand_dims(guangzhou_to_beijing, axis=1)))
 mse_g_b = mean_squared_error(guangzhou_ys, y_pred_guangzhou)
 print('the testing mse of translated guangzhou is {}'.format(mse_g_b))
+
+print('#######################################################################')
+
+y_pred_tianjin = np.squeeze(regressor.predict(np.expand_dims(tianjin_to_beijing_no_m, axis=1)))
+mse_t_b = mean_squared_error(tianjin_ys, y_pred_tianjin)
+print('the testing mse of translated tianjin w/o mahalanobis is {}'.format(mse_t_b))
+
+y_pred_shenzhen = np.squeeze(regressor.predict(np.expand_dims(shenzhen_to_beijing_no_m, axis=1)))
+mse_s_b = mean_squared_error(shenzhen_ys, y_pred_shenzhen)
+print('the testing mse of translated shenzhen w/o mahalanobis is {}'.format(mse_s_b))
+
+y_pred_guangzhou = np.squeeze(regressor.predict(np.expand_dims(guangzhou_to_beijing_no_m, axis=1)))
+mse_g_b = mean_squared_error(guangzhou_ys, y_pred_guangzhou)
+print('the testing mse of translated guangzhou w/o mahalanobis is {}'.format(mse_g_b))
