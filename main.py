@@ -10,6 +10,12 @@ from tensorflow.keras.layers import Dropout
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
+os.environ["CUDA_VISIBLE_DEVICES"] = '0' #use GPU with ID=0
+config = tf.ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.5 # maximun alloc gpu50% of MEM
+config.gpu_options.allow_growth = True #allocate dynamically
+sess = tf.Session(config = config)
+
 def load_data(city_name):
     xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
     xs = np.expand_dims(xs, axis=1)
