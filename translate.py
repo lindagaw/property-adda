@@ -37,6 +37,9 @@ inv_covar_shenzhen = inv_empirical_cov(shenzhen_xs)
 emp_mean_guangzhou = empirical_mean(guangzhou_xs)
 inv_covar_guangzhou = inv_empirical_cov(guangzhou_xs)
 
+mean = emp_mean_beijing
+inv_covar = inv_covar_beijing
+
 
 def make_generator_model():
     model = tf.keras.Sequential()
