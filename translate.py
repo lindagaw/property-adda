@@ -127,8 +127,8 @@ def train_step(images):
         fake_output = discriminator(generated_images, training=True)
 
 
-        gen_loss = generator_loss(fake_output) + mahalanobis_loss(generated_images, mean, inv_covar)
-        #gen_loss = generator_loss(fake_output)
+        #gen_loss = generator_loss(fake_output) + mahalanobis_loss(generated_images, mean, inv_covar)
+        gen_loss = generator_loss(fake_output)
         disc_loss = discriminator_loss(real_output, fake_output)
 
     print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
