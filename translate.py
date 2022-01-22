@@ -11,8 +11,8 @@ from tensorflow.keras import layers
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
-import inv_empirical_cov
-import empirical_mean
+from mahalanobis import inv_empirical_cov
+from mahalanobis import empirical_mean
 
 def load_data(city_name):
     xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
