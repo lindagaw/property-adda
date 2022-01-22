@@ -109,4 +109,4 @@ def train(dataset, epochs):
       for image_batch in dataset:
           train_step(image_batch)
 
-train(beijing_xs, 2)
+train(beijing_xs, 100)
