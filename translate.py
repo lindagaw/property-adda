@@ -127,8 +127,8 @@ def train_step(images):
         fake_output = discriminator(generated_images, training=True)
 
 
-        #gen_loss = generator_loss(fake_output) + mahalanobis_loss(generated_images, mean, inv_covar)
-        gen_loss = generator_loss(fake_output)
+        gen_loss = generator_loss(fake_output) + mahalanobis_loss(generated_images, mean, inv_covar)
+        #gen_loss = generator_loss(fake_output)
         disc_loss = discriminator_loss(real_output, fake_output)
 
     print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
@@ -144,9 +144,16 @@ def train(dataset, epochs):
       for image_batch in dataset:
           train_step(image_batch)
 
+try:
+    os.mkdir('.//translated')
+except:
+    pass
+
+# beijing to tianjin
 train(beijing_xs, 10)
-
-target_xs = tianjin_xs
-translated = generator(target_xs)
-
-print(translated.shape)
+b_to_t = generator(tianjin_xs)
+np.save('.//translated//beijing-to-tianjin.npy', b_to_t)
+b_to_s = generator(shenzhen_xs)
+np.save('.//translated//beijing-to-shenzhen.npy', b_to_s)
+b_to_g = generator(guangzhou_xs)
+np.save('.//translated//beijing-to-guangzhou.npy', b_to_g)
