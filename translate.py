@@ -144,7 +144,7 @@ def train(dataset, epochs):
       for image_batch in dataset:
           train_step(image_batch)
 
-train(beijing_xs, 100)
+train(beijing_xs, 10)
 
 target_xs = tianjin_xs
 translated = generator(target_xs)
