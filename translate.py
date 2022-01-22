@@ -96,7 +96,6 @@ def mahalanobis_loss(generated_images, mean, inv_covar):
     x = np.squeeze(generated_images)
     norm = np.linalg.norm(x)
     diff = norm - mean
-
     return diff*inv_covar*diff/10000000000
 
 def generator_loss(fake_output):
