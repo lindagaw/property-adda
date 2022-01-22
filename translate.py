@@ -97,7 +97,7 @@ def mahalanobis_loss(generated_images, mean, inv_covar):
     norm = np.linalg.norm(x)
     diff = norm - mean
 
-    return diff*inv_covar*diff
+    return diff*inv_covar*diff/10000000000
 
 def generator_loss(fake_output):
     return cross_entropy(tf.ones_like(fake_output), fake_output)
@@ -150,7 +150,7 @@ except:
     pass
 
 # beijing to tianjin
-train(beijing_xs, 10)
+train(beijing_xs, 5)
 b_to_t = generator(tianjin_xs)
 np.save('.//translated//beijing-to-tianjin.npy', b_to_t)
 b_to_s = generator(shenzhen_xs)
