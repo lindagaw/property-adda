@@ -56,9 +56,9 @@ mse_t_b = mean_squared_error(tianjin_ys, y_pred_tianjin)
 print('the testing mse of translated tianjin is {}'.format(mse_t_b))
 
 y_pred_shenzhen = np.squeeze(regressor.predict(np.expand_dims(shenzhen_to_beijing, axis=1)))
-mse_s_b = mean_squared_error(shenzhen_ys, y_pred_tianjin)
+mse_s_b = mean_squared_error(shenzhen_ys, y_pred_shenzhen)
 print('the testing mse of translated shenzhen is {}'.format(mse_s_b))
 
 y_pred_guangzhou = np.squeeze(regressor.predict(np.expand_dims(guangzhou_to_beijing, axis=1)))
-mse_g_b = mean_squared_error(guangzhou_ys, y_pred_tianjin)
+mse_g_b = mean_squared_error(guangzhou_ys, y_pred_guangzhou)
 print('the testing mse of translated guangzhou is {}'.format(mse_g_b))
