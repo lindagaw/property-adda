@@ -19,9 +19,13 @@ def load_data(city_name):
     return xs, ys
 
 beijing_xs, beijing_ys = load_data('beijing')
-#tianjin_xs, tianjin_ys = load_data('tianjin')
-#shenzhen_xs, shenzhen_ys = load_data('shenzhen')
-#guangzhou_xs, guangzhou_ys = load_data('guangzhou')
+tianjin_xs, tianjin_ys = load_data('tianjin')
+shenzhen_xs, shenzhen_ys = load_data('shenzhen')
+guangzhou_xs, guangzhou_ys = load_data('guangzhou')
+
+tianjin_to_beijing = np.load('translated//tianjin_to_beijing.npy')
+shenzhen_to_beijing = np.load('translated//shenzhen_to_beijing.npy')
+guangzhou_to_beijing = np.load('translated//guangzhou_to_beijing.npy')
 
 X_train = beijing_xs
 y_train = beijing_ys
@@ -39,10 +43,14 @@ regressor.add(LSTM(units = 50))
 regressor.add(Dropout(0.2))
 regressor.add(Dense(units = 1))
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
-regressor.fit(X_train, y_train, epochs = 5000, batch_size = 32)
+regressor.fit(X_train, y_train, epochs = 100, batch_size = 32)
 
 y_pred = np.squeeze(regressor.predict(X_test))
 
 mse = mean_squared_error(y_test, y_pred)
 
+y_pred_tianjin = np.squeeze(regressor.predict(tianjin_to_beijing))
+mse_t_b = mean_squared_error(tianjin_ys, y_pred_tianjin)
+
 print('the testing mse error is {}'.format(mse))
+print('the testing mse of translated tianjin is {}'.format(mse_t_b))

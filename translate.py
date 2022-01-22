@@ -151,8 +151,8 @@ except:
 # beijing to tianjin
 train(beijing_xs, 5)
 b_to_t = generator(tianjin_xs)
-np.save('.//translated//beijing-to-tianjin.npy', b_to_t)
+np.save('.//translated//tianjin_to_beijing.npy', b_to_t)
 b_to_s = generator(shenzhen_xs)
-np.save('.//translated//beijing-to-shenzhen.npy', b_to_s)
+np.save('.//translated//shenzhen_to_beijing.npy', b_to_s)
 b_to_g = generator(guangzhou_xs)
-np.save('.//translated//beijing-to-guangzhou.npy', b_to_g)
+np.save('.//translated//guangzhou_to_beijing.npy', b_to_g)
