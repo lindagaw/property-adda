@@ -128,6 +128,7 @@ def train_step(images):
 
 
         gen_loss = generator_loss(fake_output) + mahalanobis_loss(generated_images, mean, inv_covar)
+        #gen_loss = generator_loss(fake_output)
         disc_loss = discriminator_loss(real_output, fake_output)
 
     print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
@@ -143,7 +144,7 @@ def train(dataset, epochs):
       for image_batch in dataset:
           train_step(image_batch)
 
-train(beijing_xs, 10)
+train(beijing_xs, 100)
 
 target_xs = tianjin_xs
 translated = generator(target_xs)
