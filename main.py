@@ -1,6 +1,6 @@
 import os
 import numpy as np
-
+import pretty_errors
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -46,11 +46,10 @@ regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
 regressor.fit(X_train, y_train, epochs = 100, batch_size = 32)
 
 y_pred = np.squeeze(regressor.predict(X_test))
-
 mse = mean_squared_error(y_test, y_pred)
+print('the testing mse error is {}'.format(mse))
 
-y_pred_tianjin = np.squeeze(regressor.predict(tianjin_to_beijing))
+y_pred_tianjin = np.squeeze(regressor.predict(np.expand_dims(tianjin_to_beijing, axis=1)))
 mse_t_b = mean_squared_error(tianjin_ys, y_pred_tianjin)
 
-print('the testing mse error is {}'.format(mse))
 print('the testing mse of translated tianjin is {}'.format(mse_t_b))
