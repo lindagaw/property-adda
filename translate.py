@@ -11,6 +11,10 @@ from tensorflow.keras import layers
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
+import inv_empirical_cov
+import empirical_mean
+import mahalanobis
+
 def load_data(city_name):
     xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
     xs = np.expand_dims(xs, axis=1)
@@ -23,6 +27,15 @@ beijing_xs, beijing_ys = load_data('beijing')
 tianjin_xs, tianjin_ys = load_data('tianjin')
 shenzhen_xs, shenzhen_ys = load_data('shenzhen')
 guangzhou_xs, guangzhou_ys = load_data('guangzhou')
+
+emp_mean_beijing = empirical_mean(beijing_xs)
+inv_covar_beijing = inv_empirical_cov(beijing_xs)
+emp_mean_tianjin = empirical_mean(tianjin_xs)
+inv_covar_tianjin = inv_empirical_cov(tianjin_xs)
+emp_mean_shenzhen = empirical_mean(shenzhen_xs)
+inv_covar_shenzhen = inv_empirical_cov(shenzhen_xs)
+emp_mean_guangzhou = empirical_mean(guangzhou_xs)
+inv_covar_guangzhou = inv_empirical_cov(guangzhou_xs)
 
 def make_generator_model():
     model = tf.keras.Sequential()
@@ -67,6 +80,9 @@ def discriminator_loss(real_output, fake_output):
     total_loss = real_loss + fake_loss
     return total_loss
 
+def mahalanobis_loss(x, mean, inv_cov):
+    result = mahalanobis(x, mean, inv_cov)
+
 def generator_loss(fake_output):
     return cross_entropy(tf.ones_like(fake_output), fake_output)
 
@@ -109,4 +125,4 @@ def train(dataset, epochs):
       for image_batch in dataset:
           train_step(image_batch)
 
-train(beijing_xs, 100)
+train(beijing_xs, 10)
