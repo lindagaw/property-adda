@@ -48,6 +48,14 @@ def make_generator_model():
     model.add(layers.LeakyReLU())
     model.add(layers.Dropout(0.3))
 
+    model.add(layers.Conv1DTranspose(128, 2, strides=1, padding='same'))
+    model.add(layers.LeakyReLU())
+    model.add(layers.Dropout(0.3))
+
+    model.add(layers.Conv1DTranspose(256, 2, strides=1, padding='same'))
+    model.add(layers.LeakyReLU())
+    model.add(layers.Dropout(0.3))
+
     model.add(layers.Conv1DTranspose(128, 1, strides=1, padding='same'))
     model.add(layers.LeakyReLU())
     model.add(layers.Dropout(0.3))
