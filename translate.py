@@ -7,7 +7,7 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 from tensorflow.keras.layers import Dropout
 from tensorflow.keras import layers
-
+import random
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
@@ -114,7 +114,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 BATCH = 1
 def train_step(images, target_images):
     #noise = np.random.rand(BATCH, 1, 18)
-    noise = np.asarray([np.random.choice(target_images)])
+    noise = np.asarray([random.choice(target_images)])
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
         generated_images = tf.expand_dims(generator(noise, training=True), axis=1)
 
