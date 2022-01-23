@@ -175,7 +175,7 @@ except:
     pass
 
 # beijing to tianjin
-train(beijing_xs, 10)
+train(beijing_xs, 20)
 b_to_t = generator(tianjin_xs)
 np.save('.//translated//tianjin_to_beijing.npy', b_to_t)
 b_to_s = generator(shenzhen_xs)
