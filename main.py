@@ -49,7 +49,7 @@ regressor.add(LSTM(units = 256))
 regressor.add(Dropout(0.2))
 regressor.add(Dense(units = 1))
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
-regressor.fit(X_train, y_train, epochs = 500, batch_size = 32)
+regressor.fit(X_train, y_train, epochs = 1500, batch_size = 32)
 
 y_pred = np.squeeze(regressor.predict(X_test))
 mse = mean_squared_error(y_test, y_pred)
