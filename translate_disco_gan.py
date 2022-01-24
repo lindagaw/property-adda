@@ -91,7 +91,7 @@ discriminator_optimizer = tf.keras.optimizers.Adam(1e-5)
 
 
 def wasserstein_loss(y_true, y_pred):
- 	return mean(y_true) * mean(y_pred)
+ 	return np.mean(y_true) * np.mean(y_pred)
 
 def disco_gen_loss(images, generated_images):
     return wasserstein_loss(images, generated_images)
