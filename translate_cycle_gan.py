@@ -117,7 +117,7 @@ def train_step(images, target_images):
         gen_loss = generator_loss(fake_output) + calc_cycle_loss(noise, generated_images)
         disc_loss = discriminator_loss(real_output, fake_output)
 
-    #print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
+    print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
     gradients_of_generator = gen_tape.gradient(gen_loss, generator.trainable_variables)
     gradients_of_discriminator = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
     generator_optimizer.apply_gradients(zip(gradients_of_generator, generator.trainable_variables))
@@ -138,12 +138,12 @@ except:
 # beijing to tianjin
 train(beijing_xs, tianjin_xs, 10)
 b_to_t = generator(tianjin_xs)
-np.save('.//translated//tianjin_to_beijing.npy', b_to_t)
+np.save('.//translated//tianjin_to_beijing_cycle.npy', b_to_t)
 
 train(beijing_xs, shenzhen_xs, 10)
 b_to_s = generator(shenzhen_xs)
-np.save('.//translated//shenzhen_to_beijing.npy', b_to_s)
+np.save('.//translated//shenzhen_to_beijing_cycle.npy', b_to_s)
 
 train(beijing_xs, guangzhou_xs, 10)
 b_to_g = generator(guangzhou_xs)
-np.save('.//translated//guangzhou_to_beijing.npy', b_to_g)
+np.save('.//translated//guangzhou_to_beijing_cycle.npy', b_to_g)
