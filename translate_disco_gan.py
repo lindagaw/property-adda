@@ -90,9 +90,6 @@ generator_a_b_optimizer = tf.keras.optimizers.Adam(1e-5)
 generator_b_a_optimizer = tf.keras.optimizers.Adam(1e-5)
 discriminator_optimizer = tf.keras.optimizers.Adam(1e-5)
 
-def disco_gen_loss(images, generated_images):
-    return cross_entropy(np.squeeze(images), np.squeeze(generated_images))
-
 BATCH = 1
 def train_step(images, target_images):
     #noise = np.random.rand(BATCH, 1, 18)
@@ -106,7 +103,7 @@ def train_step(images, target_images):
         fake_output = discriminator(generated_images, training=True)
 
 
-        gen_loss = disco_gen_loss(images, generated_images)
+        gen_loss = generator_loss(generated_images)
         disc_loss = discriminator_loss(real_output, fake_output)
 
     print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
