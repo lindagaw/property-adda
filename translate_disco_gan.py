@@ -99,10 +99,8 @@ def train_step(images, target_images):
     with tf.GradientTape() as gen_tape_a_b, tf.GradientTape() as gen_tape_b_a, tf.GradientTape() as disc_tape:
         generated_images = tf.expand_dims(generator_a_b(noise, training=True), axis=1)
         generated_back_images = tf.expand_dims(generator_b_a(generated_images, training=True), axis=1)
-        try:
-            real_output = discriminator(images, training=True)
-        except:
-            real_output = discriminator(np.asarray([images]), training=True)
+
+        real_output = discriminator(np.asarray([images]), training=True)
 
         fake_output = discriminator(generated_images, training=True)
 
@@ -116,7 +114,8 @@ def train_step(images, target_images):
 
 
     gradients_of_discriminator = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
-    generator_optimizer.apply_gradients(zip(gradients_of_generator, generator.trainable_variables))
+    generator_a_b_optimizer.apply_gradients(zip(gradients_of_generator_a_b, generator_a_b.trainable_variables))
+    generator_b_a_optimizer.apply_gradients(zip(gradients_of_generator_b_a, generator_b_a.trainable_variables))
     discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, discriminator.trainable_variables))
 
 def train(dataset, target_images, epochs):
