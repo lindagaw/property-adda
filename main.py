@@ -53,31 +53,31 @@ regressor.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
 regressor.fit(X_train, y_train, epochs = 3000, batch_size = 32)
 
 y_pred = np.squeeze(regressor.predict(X_test))
-mse = mean_squared_error(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred, squared=True)
 print('the testing mse error is {}'.format(mse))
 
 y_pred_tianjin = np.squeeze(regressor.predict(np.expand_dims(tianjin_to_beijing, axis=1)))
-mse_t_b = mean_squared_error(tianjin_ys, y_pred_tianjin)
+mse_t_b = mean_squared_error(tianjin_ys, y_pred_tianjin, squared=True)
 print('the testing mse of translated tianjin is {}'.format(mse_t_b))
 
 y_pred_shenzhen = np.squeeze(regressor.predict(np.expand_dims(shenzhen_to_beijing, axis=1)))
-mse_s_b = mean_squared_error(shenzhen_ys, y_pred_shenzhen)
+mse_s_b = mean_squared_error(shenzhen_ys, y_pred_shenzhen, squared=True)
 print('the testing mse of translated shenzhen is {}'.format(mse_s_b))
 
 y_pred_guangzhou = np.squeeze(regressor.predict(np.expand_dims(guangzhou_to_beijing, axis=1)))
-mse_g_b = mean_squared_error(guangzhou_ys, y_pred_guangzhou)
+mse_g_b = mean_squared_error(guangzhou_ys, y_pred_guangzhou, squared=True)
 print('the testing mse of translated guangzhou is {}'.format(mse_g_b))
 
 print('#######################################################################')
 
 y_pred_tianjin = np.squeeze(regressor.predict(np.expand_dims(tianjin_to_beijing_no_m, axis=1)))
-mse_t_b = mean_squared_error(tianjin_ys, y_pred_tianjin)
+mse_t_b = mean_squared_error(tianjin_ys, y_pred_tianjin, squared=True)
 print('the testing mse of translated tianjin w/o mahalanobis is {}'.format(mse_t_b))
 
 y_pred_shenzhen = np.squeeze(regressor.predict(np.expand_dims(shenzhen_to_beijing_no_m, axis=1)))
-mse_s_b = mean_squared_error(shenzhen_ys, y_pred_shenzhen)
+mse_s_b = mean_squared_error(shenzhen_ys, y_pred_shenzhen, squared=True)
 print('the testing mse of translated shenzhen w/o mahalanobis is {}'.format(mse_s_b))
 
 y_pred_guangzhou = np.squeeze(regressor.predict(np.expand_dims(guangzhou_to_beijing_no_m, axis=1)))
-mse_g_b = mean_squared_error(guangzhou_ys, y_pred_guangzhou)
+mse_g_b = mean_squared_error(guangzhou_ys, y_pred_guangzhou, squared=True)
 print('the testing mse of translated guangzhou w/o mahalanobis is {}'.format(mse_g_b))
