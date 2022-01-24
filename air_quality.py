@@ -68,18 +68,17 @@ def get_city_dataset(city):
     print('city {} has data of shape {}'.format(city, city_data.shape))
     return city_data
 
-beijing = get_city_dataset('001')
-np.save('data//pre-processed//beijing.npy', beijing)
+#beijing = get_city_dataset('001')
+#np.save('data//pre-processed//beijing.npy', beijing)
 
-shenzhen = get_city_dataset('004')
-np.save('data//pre-processed//shenzhen.npy', shenzhen)
+#shenzhen = get_city_dataset('004')
+#np.save('data//pre-processed//shenzhen.npy', shenzhen)
 
-tianjin = get_city_dataset('006')
-np.save('data//pre-processed//tianjin.npy', tianjin)
-#print(np.load('data//pre-processed//tianjin.npy').shape)
+#tianjin = get_city_dataset('006')
+#np.save('data//pre-processed//tianjin.npy', tianjin)
 
-guangzhou = get_city_dataset('009')
-np.save('data//pre-processed//guangzhou.npy', guangzhou)
+#guangzhou = get_city_dataset('009')
+#np.save('data//pre-processed//guangzhou.npy', guangzhou)
 
 
 import pretty_errors
@@ -92,16 +91,14 @@ shenzhen = np.load('data//pre-processed//shenzhen.npy')
 tianjin = np.load('data//pre-processed//tianjin.npy')
 guangzhou = np.load('data//pre-processed//guangzhou.npy')
 
-def obtain_x_y(city, city_name):
+def obtain_x_y(city, city_name, index):
     xs = []
     ys = []
     for sample in city:
         x = []
         for component in sample[:len(sample)-2]:
-            #norm = np.linalg.norm(component)
-            x.append(component)
-
-        y = np.linalg.norm(sample[len(sample)-1])
+            x.append(component[index])
+        y = sample[len(sample)-1][index]
 
         xs.append(x)
         ys.append(y)
@@ -112,10 +109,10 @@ def obtain_x_y(city, city_name):
     np.save('data//pre-processed//' + city_name + '_finalized_x.npy', xs)
     np.save('data//pre-processed//' + city_name + '_finalized_y.npy', ys)
 
-obtain_x_y(beijing, 'beijing')
-obtain_x_y(tianjin, 'tianjin')
-obtain_x_y(shenzhen, 'shenzhen')
-obtain_x_y(guangzhou, 'guangzhou')
+obtain_x_y(beijing, 'beijing', 0)
+obtain_x_y(tianjin, 'tianjin', 0)
+obtain_x_y(shenzhen, 'shenzhen', 0)
+obtain_x_y(guangzhou, 'guangzhou', 0)
 
 def display_data(city_name):
     xs = np.load('data//pre-processed//'+ city_name + '_finalized_x.npy')
