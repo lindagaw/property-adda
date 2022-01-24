@@ -101,12 +101,15 @@ def train_step(images, target_images):
         generated_back_images = tf.expand_dims(generator_b_a(generated_images, training=True), axis=1)
 
         # discriminator a_b
-        real_output = discriminator_a_b(np.asarray([images]), training=True)
-        fake_output = discriminator_b_a(generated_images, training=True)
+        real_output_a_b = discriminator_a_b(np.asarray([images]), training=True)
+        fake_output_a_b = discriminator_a_b(generated_images, training=True)
+
+        real_output_b_a = discriminator_b_a(np.asarray([images]), training=True)
+        fake_output_b_a = discriminator_b_a(generated_back_images, training=True)
 
 
         gen_loss = generator_loss(generated_back_images, generated_images)
-        disc_loss = discriminator_loss(real_output, fake_output)
+        disc_loss = discriminator_loss(real_output_a_b, fake_output_a_b) + discriminator_loss(real_output_b_a, fake_output_b_a)
 
     print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
     gradients_of_generator_a_b = gen_tape_a_b.gradient(gen_loss, generator_a_b.trainable_variables)
