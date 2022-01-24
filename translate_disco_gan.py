@@ -68,7 +68,8 @@ def make_discriminator_model():
 
     return model
 
-discriminator = make_discriminator_model()
+discriminator_a_b = make_discriminator_model()
+discriminator_b_a = make_discriminator_model()
 generator_a_b = make_generator_model()
 generator_b_a = make_generator_model()
 
@@ -88,19 +89,20 @@ def generator_loss(real_output, fake_output):
 
 generator_a_b_optimizer = tf.keras.optimizers.Adam(1e-5)
 generator_b_a_optimizer = tf.keras.optimizers.Adam(1e-5)
-discriminator_optimizer = tf.keras.optimizers.Adam(1e-5)
+discriminator_a_b_optimizer = tf.keras.optimizers.Adam(1e-5)
+discriminator_b_a_optimizer = tf.keras.optimizers.Adam(1e-5)
 
 BATCH = 1
 def train_step(images, target_images):
     #noise = np.random.rand(BATCH, 1, 18)
     noise = np.asarray([random.choice(target_images)])
-    with tf.GradientTape() as gen_tape_a_b, tf.GradientTape() as gen_tape_b_a, tf.GradientTape() as disc_tape:
+    with tf.GradientTape() as gen_tape_a_b, tf.GradientTape() as gen_tape_b_a, tf.GradientTape() as disc_a_b_tape, tf.GradientTape() as disc_b_a_tape:
         generated_images = tf.expand_dims(generator_a_b(noise, training=True), axis=1)
         generated_back_images = tf.expand_dims(generator_b_a(generated_images, training=True), axis=1)
 
-        real_output = discriminator(np.asarray([images]), training=True)
-
-        fake_output = discriminator(generated_images, training=True)
+        # discriminator a_b
+        real_output = discriminator_a_b(np.asarray([images]), training=True)
+        fake_output = discriminator_b_a(generated_images, training=True)
 
 
         gen_loss = generator_loss(generated_back_images, generated_images)
@@ -109,12 +111,14 @@ def train_step(images, target_images):
     print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
     gradients_of_generator_a_b = gen_tape_a_b.gradient(gen_loss, generator_a_b.trainable_variables)
     gradients_of_generator_b_a = gen_tape_b_a.gradient(gen_loss, generator_b_a.trainable_variables)
+    gradients_of_discriminator_a_b = disc_a_b_tape.gradient(disc_loss, discriminator_a_b.trainable_variables)
+    gradients_of_discriminator_b_a = disc_b_a_tape.gradient(disc_loss, discriminator_b_a.trainable_variables)
 
 
-    gradients_of_discriminator = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
     generator_a_b_optimizer.apply_gradients(zip(gradients_of_generator_a_b, generator_a_b.trainable_variables))
     generator_b_a_optimizer.apply_gradients(zip(gradients_of_generator_b_a, generator_b_a.trainable_variables))
-    discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, discriminator.trainable_variables))
+    discriminator_a_b_optimizer.apply_gradients(zip(gradients_of_discriminator_a_b, discriminator_a_b.trainable_variables))
+    discriminator_b_a_optimizer.apply_gradients(zip(gradients_of_discriminator_b_a, discriminator_b_a.trainable_variables))
 
 def train(dataset, target_images, epochs):
   for epoch in range(epochs):
