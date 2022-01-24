@@ -90,10 +90,7 @@ generator_optimizer = tf.keras.optimizers.Adam(1e-5)
 discriminator_optimizer = tf.keras.optimizers.Adam(1e-5)
 
 def disco_gen_loss(images, generated_images):
-    print(images.shape)
-    print(generated.shape)
-
-    return cross_entropy(images, generated_images)
+    return cross_entropy(np.squeeze(images), np.squeeze(generated_images))
 
 BATCH = 1
 def train_step(images, target_images):
