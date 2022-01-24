@@ -104,7 +104,7 @@ def train_step(images, target_images):
         fake_output = discriminator(generated_images, training=True)
 
 
-        gen_loss = generator_loss(generated_images)
+        gen_loss = generator_loss(generated_back_images, generated_images)
         disc_loss = discriminator_loss(real_output, fake_output)
 
     print('generator loss: {}, discriminator_loss:{}'.format(gen_loss, disc_loss))
