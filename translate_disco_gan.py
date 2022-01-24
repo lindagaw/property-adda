@@ -83,8 +83,9 @@ def discriminator_loss(real_output, fake_output):
 LAMBDA = 0.01
 
 
-def generator_loss(fake_output):
-    return cross_entropy(tf.ones_like(fake_output), fake_output)
+def generator_loss(real_output, fake_output):
+    #return cross_entropy(real_output, fake_output)
+    return fake_output
 
 generator_a_b_optimizer = tf.keras.optimizers.Adam(1e-5)
 generator_b_a_optimizer = tf.keras.optimizers.Adam(1e-5)
@@ -94,7 +95,8 @@ BATCH = 1
 def train_step(images, target_images):
     #noise = np.random.rand(BATCH, 1, 18)
     noise = np.asarray([random.choice(target_images)])
-    with tf.GradientTape() as gen_tape_a_b, tf.GradientTape() as gen_tape_b_a, tf.GradientTape() as disc_tape:
+    with tf.GradientTape() as gen_tape_a_b, \\
+        tf.GradientTape() as gen_tape_b_a, tf.GradientTape() as disc_tape:
         generated_images = tf.expand_dims(generator_a_b(noise, training=True), axis=1)
         generated_back_images = tf.expand_dims(generator_b_a(generated_images, training=True), axis=1)
 
