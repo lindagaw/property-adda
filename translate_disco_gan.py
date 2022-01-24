@@ -89,12 +89,8 @@ def generator_loss(fake_output):
 generator_optimizer = tf.keras.optimizers.Adam(1e-5)
 discriminator_optimizer = tf.keras.optimizers.Adam(1e-5)
 
-
-def wasserstein_loss(y_true, y_pred):
- 	return np.mean(y_true) * np.mean(y_pred)
-
 def disco_gen_loss(images, generated_images):
-    return wasserstein_loss(images, generated_images)
+    return cross_entropy(images, generated_images)
 
 BATCH = 1
 def train_step(images, target_images):
