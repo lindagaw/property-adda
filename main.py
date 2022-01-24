@@ -37,7 +37,7 @@ y_train = beijing_ys
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.33, random_state=42)
 
 regressor = Sequential()
-regressor.add(LSTM(units = 2048, return_sequences = True, input_shape = (1, 18)))
+regressor.add(LSTM(units = 4096, return_sequences = True, input_shape = (1, 18)))
 regressor.add(Dropout(0.2))
 #regressor.add(LSTM(units = 512, return_sequences = True))
 #regressor.add(Dropout(0.2))
