@@ -86,7 +86,8 @@ LAMBDA = 0.01
 def generator_loss(fake_output):
     return cross_entropy(tf.ones_like(fake_output), fake_output)
 
-generator_optimizer = tf.keras.optimizers.Adam(1e-5)
+generator_a_b_optimizer = tf.keras.optimizers.Adam(1e-5)
+generator_b_a_optimizer = tf.keras.optimizers.Adam(1e-5)
 discriminator_optimizer = tf.keras.optimizers.Adam(1e-5)
 
 def disco_gen_loss(images, generated_images):
