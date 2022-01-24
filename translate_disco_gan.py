@@ -95,8 +95,7 @@ BATCH = 1
 def train_step(images, target_images):
     #noise = np.random.rand(BATCH, 1, 18)
     noise = np.asarray([random.choice(target_images)])
-    with tf.GradientTape() as gen_tape_a_b, \\
-        tf.GradientTape() as gen_tape_b_a, tf.GradientTape() as disc_tape:
+    with tf.GradientTape() as gen_tape_a_b, tf.GradientTape() as gen_tape_b_a, tf.GradientTape() as disc_tape:
         generated_images = tf.expand_dims(generator_a_b(noise, training=True), axis=1)
         generated_back_images = tf.expand_dims(generator_b_a(generated_images, training=True), axis=1)
 
