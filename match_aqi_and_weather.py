@@ -25,16 +25,17 @@ def combine_meteorology_and_airquality():
     with open(air_quality_csv, 'r') as read_obj:
         csv_reader = reader(read_obj)
         header = next(csv_reader)
-        if header != None:
-            for row in csv_reader:
-                if int(row[0][2]) == 1 or int(row[0][2]) == 4 or int(row[0][2]) == 6 or int(row[0][2]) == 9:
-                    for item in appropriate_list:
-                        if int(item[0]) == int(row[0][2]) and \
-                            str_to_datetime(item[1]) - str_to_datetime(row[1]) < timedelta(hours=2) and \
-                            str_to_datetime(item[1]) - str_to_datetime(row[1]) > timedelta(hours=0):
-                                appropriate_list_v2.append(item + row)
-                                break
-                                
+
+        for row in csv_reader:
+            if row[:2] == '001' or row[:2] == '004' or row[:2] == '006' or rrow[:2] == '009':
+                for item in appropriate_list:
+                    if int(item[0]) == int(row[0][2]) and \
+                        str_to_datetime(item[1]) - str_to_datetime(row[1]) < timedelta(hours=2) and \
+                        str_to_datetime(item[1]) - str_to_datetime(row[1]) > timedelta(hours=0):
+                            appropriate_list_v2.append(item + row)
+                            print(item+row)
+                            break
+
 
     return appropriate_list_v2
 
@@ -42,9 +43,6 @@ combine_meteorology_and_airquality_list = combine_meteorology_and_airquality()
 head_airquality = ['Station ID', 'Time', 'PM25', 'PM10', 'NO2', 'CO', 'O3', 'SO2']
 head_meterology = ['ID', 'Time', 'Weather', 'Temperature', 'Pressure', 'Humidity', 'Wind Speed', 'Wind Direction']
 heads = head_airquality + head_meterology
-
-for item in combine_meteorology_and_airquality_list:
-    print(item)
 
 with open('data//combine_meteorology_and_airquality.csv', 'w') as f:
     # using csv.writer method from CSV package
