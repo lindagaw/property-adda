@@ -27,7 +27,7 @@ def combine_meteorology_and_airquality():
         header = next(csv_reader)
 
         for row in csv_reader:
-            if row[:2] == '001' or row[:2] == '004' or row[:2] == '006' or rrow[:2] == '009':
+            if row[:2] == '001' or row[:2] == '004' or row[:2] == '006' or row[:2] == '009':
                 for item in appropriate_list:
                     if int(item[0]) == int(row[0][2]) and \
                         str_to_datetime(item[1]) - str_to_datetime(row[1]) < timedelta(hours=2) and \
