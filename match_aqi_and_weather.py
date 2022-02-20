@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from csv import reader
+import csv
 
 meteorology_csv = 'data//meteorology.csv'
 air_quality_csv = 'data//airquality.csv'
