@@ -30,7 +30,7 @@ def combine_meteorology_and_airquality():
         for row in csv_reader:
 
             #if row[0][:3] == '001' or row[0][:3] == '004' or row[0][:3] == '006' or row[0][:3] == '009':
-            if row[0][:3] == '006':
+            if row[0][:3] == '009':
                 for item in appropriate_list:
                     if int(item[0]) == int(row[0][2]) and \
                         str_to_datetime(item[1]) - str_to_datetime(row[1]) < timedelta(hours=2) and \
@@ -47,7 +47,7 @@ head_airquality = ['Station ID', 'Time', 'PM25', 'PM10', 'NO2', 'CO', 'O3', 'SO2
 head_meterology = ['ID', 'Time', 'Weather', 'Temperature', 'Pressure', 'Humidity', 'Wind Speed', 'Wind Direction']
 heads = head_airquality + head_meterology
 
-with open('data//shenzhen_combine_meteorology_and_airquality.csv', 'w') as f:
+with open('data//guangzhou_combine_meteorology_and_airquality.csv', 'w') as f:
     # using csv.writer method from CSV package
     write = csv.writer(f)
 
