@@ -103,7 +103,7 @@ def windspeed_to_air_quality():
 #f_windspeed_to_air_quality = windspeed_to_air_quality()
 
 optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
-loss_fn = tf.keras.losses.mean_squared_error(from_logits=True)
+loss_fn = tf.keras.losses.mean_squared_error()
 
 model = Sequential()
 model.add(LSTM(units = 256, return_sequences = True, input_shape = (1, 19)))
