@@ -118,33 +118,19 @@ model.add(LSTM(units = 256))
 model.add(Dropout(0.2))
 model.add(Dense(units = 1))
 
-epochs = 2
+epochs = 100
 for epoch in range(epochs):
     print("\nStart of epoch %d" % (epoch,))
 
-    # Iterate over the batches of the dataset.
     for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
         x_batch_train = np.expand_dims(x_batch_train, axis=1)
-        # Open a GradientTape to record the operations run
-        # during the forward pass, which enables auto-differentiation.
-        with tf.GradientTape() as tape:
 
-            # Run the forward pass of the layer.
-            # The operations that the layer applies
-            # to its inputs are going to be recorded
-            # on the GradientTape.
+        with tf.GradientTape() as tape:
             logits = model(x_batch_train, training=True)  # Logits for this minibatch
-            # Compute the loss value for this minibatch.
             loss_value = loss_fn(y_batch_train, logits)
 
-        # Use the gradient tape to automatically retrieve
-        # the gradients of the trainable variables with respect to the loss.
         grads = tape.gradient(loss_value, model.trainable_weights)
 
-        # Run one step of gradient descent by updating
-        # the value of the variables to minimize the loss.
         optimizer.apply_gradients(zip(grads, model.trainable_weights))
-
-        # Log every 200 batches.
 
     print(float(loss_value))
