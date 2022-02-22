@@ -125,6 +125,9 @@ for epoch in range(epochs):
     # Iterate over the batches of the dataset.
     for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
         x_batch_train = np.expand_dims(x_batch_train, axis=1)
+
+        print(x_batch_train)
+        print(x_batch_train.shape)
         # Open a GradientTape to record the operations run
         # during the forward pass, which enables auto-differentiation.
         with tf.GradientTape() as tape:
@@ -134,7 +137,6 @@ for epoch in range(epochs):
             # to its inputs are going to be recorded
             # on the GradientTape.
             logits = model(x_batch_train, training=True)  # Logits for this minibatch
-            print(logits)
             # Compute the loss value for this minibatch.
             loss_value = loss_fn(y_batch_train, logits)
 
