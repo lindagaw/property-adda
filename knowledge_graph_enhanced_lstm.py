@@ -102,5 +102,5 @@ def windspeed_to_air_quality():
 #f_weather_to_air_quality = weather_to_air_quality()
 #f_windspeed_to_air_quality = windspeed_to_air_quality()
 
-optimizer = keras.optimizers.Adam(learning_rate=1e-3)
-loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
+loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
