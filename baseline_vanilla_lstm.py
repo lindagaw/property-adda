@@ -15,8 +15,8 @@ def load_air_quality_data(city):
     xs = np.load('data//pre-processed//' + city + '_pm25_xs.npy')
     ys = np.load('data//pre-processed//' + city + '_pm25_ys.npy')
 
-    xs = xs.reshape(1, 19)
-    #ys = ys.reshape(-1, 1, 1)
+    xs = np.expand_dims(xs, axis=0)
+
     return xs, ys
 
 
