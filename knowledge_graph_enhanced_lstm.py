@@ -118,7 +118,7 @@ model.add(LSTM(units = 256))
 model.add(Dropout(0.2))
 model.add(Dense(units = 1))
 
-epochs = 10
+epochs = 5
 for epoch in range(epochs):
     print("\nStart of epoch %d" % (epoch,))
 
