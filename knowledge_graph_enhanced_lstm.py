@@ -99,9 +99,8 @@ def windspeed_to_air_quality():
 
     return regressor
 
-f_weather_to_air_quality = weather_to_air_quality()
-f_windspeed_to_air_quality = windspeed_to_air_quality()
+#f_weather_to_air_quality = weather_to_air_quality()
+#f_windspeed_to_air_quality = windspeed_to_air_quality()
 
-def custom_loss_function(y_true, y_pred):
-   squared_difference = tf.square(y_true - y_pred)
-   return tf.reduce_mean(squared_difference, axis=-1)
+optimizer = keras.optimizers.Adam(learning_rate=1e-3)
+loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
