@@ -148,4 +148,4 @@ for epoch in range(epochs):
 
         # Log every 200 batches.
 
-        print(loss_value)
+        print(float(loss_value))
