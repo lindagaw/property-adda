@@ -134,7 +134,7 @@ for epoch in range(epochs):
             # to its inputs are going to be recorded
             # on the GradientTape.
             logits = model(x_batch_train, training=True)  # Logits for this minibatch
-            print(logis)
+            print(logits)
             # Compute the loss value for this minibatch.
             loss_value = loss_fn(y_batch_train, logits)
 
