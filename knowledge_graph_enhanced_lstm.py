@@ -65,10 +65,43 @@ def weather_to_air_quality():
     regressor.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
     , loss = 'mean_squared_error')
     regressor.fit(X_train_weather, y_train_air_quality, epochs = 500, batch_size = 32)
+
     y_pred = np.squeeze(regressor.predict(X_test_weather))
     mse = mean_squared_error(y_test_air_quality, y_pred, squared=True)
-    accuracy = error_rate(y_test, y_pred, 5)
+    accuracy = error_rate(y_test_air_quality, y_pred, 5)
     print('the testing mse error is {}'.format(mse))
     print('the accuracy is {}'.format(accuracy))
 
-weather_to_air_quality()
+    return regressor
+
+def windspeed_to_air_quality():
+
+    regressor = Sequential()
+    regressor.add(LSTM(units = 256, return_sequences = True, input_shape = (1, 19)))
+    regressor.add(Dropout(0.2))
+    regressor.add(LSTM(units = 1024, return_sequences = True))
+    regressor.add(Dropout(0.2))
+    regressor.add(LSTM(units = 2048, return_sequences = True))
+    regressor.add(Dropout(0.2))
+    regressor.add(LSTM(units = 1024, return_sequences = True))
+    regressor.add(Dropout(0.2))
+    regressor.add(LSTM(units = 256))
+    regressor.add(Dropout(0.2))
+    regressor.add(Dense(units = 1))
+    regressor.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
+    , loss = 'mean_squared_error')
+    regressor.fit(X_train_windspeed, y_train_air_quality, epochs = 500, batch_size = 32)
+    y_pred = np.squeeze(regressor.predict(X_test_windspeed))
+    mse = mean_squared_error(y_test_windspeed, y_pred, squared=True)
+    accuracy = error_rate(y_test_windspeed, y_pred, 5)
+    print('the testing mse error is {}'.format(mse))
+    print('the accuracy is {}'.format(accuracy))
+
+    return regressor
+
+f_weather_to_air_quality = weather_to_air_quality()
+f_windspeed_to_air_quality = windspeed_to_air_quality()
+
+def custom_loss_function(y_true, y_pred):
+   squared_difference = tf.square(y_true - y_pred)
+   return tf.reduce_mean(squared_difference, axis=-1)
