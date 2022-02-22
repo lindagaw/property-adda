@@ -124,7 +124,7 @@ for epoch in range(epochs):
 
     # Iterate over the batches of the dataset.
     for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
-
+        x_batch_train = np.expand_dims(x_batch_train, axis=1) 
         # Open a GradientTape to record the operations run
         # during the forward pass, which enables auto-differentiation.
         with tf.GradientTape() as tape:
