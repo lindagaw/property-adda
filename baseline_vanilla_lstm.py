@@ -11,7 +11,7 @@ from tensorflow.keras.layers import Dropout
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
-physical_devices = tf.config.list_physical_devices('GPU')
+physical_devices = tf.config.experimental.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(physical_devices[0], enable=True)
 
 def load_air_quality_data(city):
