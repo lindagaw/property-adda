@@ -1,7 +1,7 @@
 from csv import reader
 import numpy as np
 import csv
-
+import sys
 
 def equal_sized_chunks(l, n):
     return [l[i:i + n] for i in range(0, len(l), n)]
@@ -39,7 +39,10 @@ def read_city_csv(city_csv):
 
     return chunks[:len(chunks)-2]
 
-city = 'shenzhen'
+city = sys.argv[1]
+
+print('processing data from the city {} ...'.format(city))
+
 city_csv = 'data//' + city + '_combine_meteorology_and_airquality.csv'
 chunks = read_city_csv(city_csv)
 
