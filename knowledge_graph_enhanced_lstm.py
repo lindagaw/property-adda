@@ -148,8 +148,4 @@ for epoch in range(epochs):
 
         # Log every 200 batches.
 
-        print(
-            "Training loss (for one batch) at step %d: %.4f"
-            % (step, float(loss_value))
-        )
-        print("Seen so far: %s samples" % ((step + 1) * batch_size))
+        print(loss_value)
