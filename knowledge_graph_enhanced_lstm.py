@@ -99,8 +99,8 @@ def windspeed_to_air_quality():
 
     return regressor
 
-#f_weather_to_air_quality = weather_to_air_quality()
-#f_windspeed_to_air_quality = windspeed_to_air_quality()
+f_weather_to_air_quality = weather_to_air_quality()
+f_windspeed_to_air_quality = windspeed_to_air_quality()
 
 optimizer = tf.keras.optimizers.Adam(learning_rate=1e-5)
 loss_fn = tf.keras.losses.MeanSquaredError()
@@ -118,16 +118,19 @@ model.add(LSTM(units = 256))
 model.add(Dropout(0.2))
 model.add(Dense(units = 1))
 
-epochs = 5
+epochs = 100
 for epoch in range(epochs):
     print("\nStart of epoch %d" % (epoch,))
 
     for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
         x_batch_train = np.expand_dims(x_batch_train, axis=1)
 
+        y_hat_weather = f_weather_to_air_quality(x_batch_train)
+        y_hat_windspeed = f_windspeed_to_air_quality
+
         with tf.GradientTape() as tape:
             logits = model(x_batch_train, training=True)  # Logits for this minibatch
-            loss_value = loss_fn(y_batch_train, logits)
+            loss_value = loss_fn(y_batch_train, logits) + loss_fn(y_hat_weather, logits) + loss_fn(y_hat_windspeed, logits)
 
         grads = tape.gradient(loss_value, model.trainable_weights)
 
