@@ -118,7 +118,7 @@ model.add(LSTM(units = 256))
 model.add(Dropout(0.2))
 model.add(Dense(units = 1))
 
-epochs = 100
+epochs = 30
 for epoch in range(epochs):
 
     for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
@@ -135,7 +135,7 @@ for epoch in range(epochs):
 
         optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
-    print('at epoch {}, the loss value is '.format(epoch, float(loss_value)))
+    print('at epoch {}, the loss value is {}'.format(epoch, float(loss_value)))
 
 y_pred = np.squeeze(model.predict(X_test_air_quality))
 mse = mean_squared_error(y_test_air_quality, y_pred, squared=True)
