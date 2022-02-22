@@ -23,7 +23,7 @@ X, y = load_air_quality_data(sys.argv[1])
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 
 regressor = Sequential()
-regressor.add(LSTM(units = 256, return_sequences = True, input_shape = (1, 18)))
+regressor.add(LSTM(units = 256, return_sequences = True, input_shape = (1, 19)))
 regressor.add(Dropout(0.2))
 regressor.add(LSTM(units = 1024, return_sequences = True))
 regressor.add(Dropout(0.2))
