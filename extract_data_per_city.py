@@ -60,9 +60,9 @@ def extract_features(chunks, index, name):
         # chunk is of shape (20, 16)
         for i in range(0, len(chunk)):
                 if i < len(chunk)-1:
-                    xs.append(chunk[i][index])
+                    xs.append(float(chunk[i][index]))
                 else:
-                    ys.append(chunk[i][index])
+                    ys.append(float(chunk[i][index]))
         overall_xs.append(xs)
         overall_ys.append(ys)
 
