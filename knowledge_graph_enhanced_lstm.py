@@ -118,7 +118,7 @@ model.add(LSTM(units = 256))
 model.add(Dropout(0.2))
 model.add(Dense(units = 1))
 
-epochs = 100
+epochs = 10
 for epoch in range(epochs):
     print("\nStart of epoch %d" % (epoch,))
 
@@ -134,3 +134,9 @@ for epoch in range(epochs):
         optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
     print(float(loss_value))
+
+y_pred = np.squeeze(model.predict(X_test_air_quality))
+mse = mean_squared_error(y_test_air_quality, y_pred, squared=True)
+accuracy = error_rate(y_test_air_quality, y_pred, 5)
+print('the testing mse error is {}'.format(mse))
+print('the accuracy is {}'.format(accuracy))
