@@ -64,7 +64,7 @@ def weather_to_air_quality():
     regressor.add(Dense(units = 1))
     regressor.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
     , loss = 'mean_squared_error')
-    regressor.fit(X_train_weather, y_train_air_quality, epochs = 500, batch_size = 32)
+    regressor.fit(X_train_weather, y_train_air_quality, epochs = 100, batch_size = 32)
 
     y_pred = np.squeeze(regressor.predict(X_test_weather))
     mse = mean_squared_error(y_test_air_quality, y_pred, squared=True)
@@ -90,7 +90,7 @@ def windspeed_to_air_quality():
     regressor.add(Dense(units = 1))
     regressor.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
     , loss = 'mean_squared_error')
-    regressor.fit(X_train_windspeed, y_train_air_quality, epochs = 500, batch_size = 32)
+    regressor.fit(X_train_windspeed, y_train_air_quality, epochs = 100, batch_size = 32)
     y_pred = np.squeeze(regressor.predict(X_test_windspeed))
     mse = mean_squared_error(y_test_windspeed, y_pred, squared=True)
     accuracy = error_rate(y_test_windspeed, y_pred, 5)
@@ -120,13 +120,12 @@ model.add(Dense(units = 1))
 
 epochs = 100
 for epoch in range(epochs):
-    print("\nStart of epoch %d" % (epoch,))
 
     for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
         x_batch_train = np.expand_dims(x_batch_train, axis=1)
 
-        y_hat_weather = f_weather_to_air_quality(x_batch_train)
-        y_hat_windspeed = f_windspeed_to_air_quality
+        y_hat_weather = np.squeeze(f_weather_to_air_quality.predict(x_batch_train))
+        y_hat_windspeed = np.squeeze(f_windspeed_to_air_quality.predict(x_batch_train))
 
         with tf.GradientTape() as tape:
             logits = model(x_batch_train, training=True)  # Logits for this minibatch
@@ -136,7 +135,7 @@ for epoch in range(epochs):
 
         optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
-    print(float(loss_value))
+    print('at epoch {}, the loss value is '.format(epoch, float(loss_value)))
 
 y_pred = np.squeeze(model.predict(X_test_air_quality))
 mse = mean_squared_error(y_test_air_quality, y_pred, squared=True)
