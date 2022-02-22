@@ -123,7 +123,7 @@ for epoch in range(epochs):
     print("\nStart of epoch %d" % (epoch,))
 
     # Iterate over the batches of the dataset.
-    for x_train, y_train in zip(X_air_quality, y_air_quality):
+    for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
 
         # Open a GradientTape to record the operations run
         # during the forward pass, which enables auto-differentiation.
