@@ -42,7 +42,7 @@ regressor.add(Dropout(0.2))
 regressor.add(Dense(units = 1))
 regressor.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
 , loss = 'mean_squared_error')
-regressor.fit(X_train, y_train, epochs = 2500, batch_size = 32)
+regressor.fit(X_train, y_train, epochs = 500, batch_size = 32)
 
 y_pred = np.squeeze(regressor.predict(X_test))
 
