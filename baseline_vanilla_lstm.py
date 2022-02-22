@@ -11,6 +11,8 @@ from tensorflow.keras.layers import Dropout
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
+from error_rate import error_rate
+
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
 
 def load_air_quality_data(city):
@@ -43,5 +45,9 @@ regressor.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
 regressor.fit(X_train, y_train, epochs = 150, batch_size = 32)
 
 y_pred = np.squeeze(regressor.predict(X_test))
+
 mse = mean_squared_error(y_test, y_pred, squared=True)
+accuracy = error_rate(y_test, y_pred, 5)
+
 print('the testing mse error is {}'.format(mse))
+print('the accuracy is {}'.format(accuracy))
