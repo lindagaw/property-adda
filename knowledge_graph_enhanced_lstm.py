@@ -124,7 +124,7 @@ for epoch in range(epochs):
 
     # Iterate over the batches of the dataset.
     for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
-        x_batch_train = np.expand_dims(x_batch_train, axis=1) 
+        x_batch_train = np.expand_dims(x_batch_train, axis=1)
         # Open a GradientTape to record the operations run
         # during the forward pass, which enables auto-differentiation.
         with tf.GradientTape() as tape:
@@ -147,9 +147,9 @@ for epoch in range(epochs):
         optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
         # Log every 200 batches.
-        if step % 200 == 0:
-            print(
-                "Training loss (for one batch) at step %d: %.4f"
-                % (step, float(loss_value))
-            )
-            print("Seen so far: %s samples" % ((step + 1) * batch_size))
+
+        print(
+            "Training loss (for one batch) at step %d: %.4f"
+            % (step, float(loss_value))
+        )
+        print("Seen so far: %s samples" % ((step + 1) * batch_size))
