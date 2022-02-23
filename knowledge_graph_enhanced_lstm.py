@@ -118,7 +118,7 @@ model.add(LSTM(units = 256))
 model.add(Dropout(0.2))
 model.add(Dense(units = 1))
 
-epochs = 30
+epochs = 100
 for epoch in range(epochs):
 
     for x_batch_train, y_batch_train in zip(X_air_quality, y_air_quality):
