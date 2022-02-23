@@ -90,7 +90,7 @@ def windspeed_to_air_quality():
     regressor.add(Dense(units = 1))
     regressor.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
     , loss = 'mean_squared_error')
-    regressor.fit(X_train_windspeed, y_train_air_quality, epochs = 100, batch_size = 32)
+    regressor.fit(X_train_windspeed, y_train_air_quality, epochs = 500, batch_size = 32)
     y_pred = np.squeeze(regressor.predict(X_test_windspeed))
     mse = mean_squared_error(y_test_windspeed, y_pred, squared=True)
     accuracy = error_rate(y_test_windspeed, y_pred, 5)
